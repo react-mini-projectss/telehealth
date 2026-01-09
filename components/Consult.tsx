@@ -20,7 +20,10 @@ export default function Consult({ isOpen, onClose }: ConsultProps) {
             (window as any).SpeechRecognition ||
             (window as any).webkitSpeechRecognition;
 
-        if (!SpeechRecognition) return;
+        if (!SpeechRecognition) {
+            console.error("Browser does not support Speech Recognition.");
+            return;
+        }
 
         const recognition = new SpeechRecognition();
         recognition.lang = "en-US";
@@ -45,11 +48,18 @@ export default function Consult({ isOpen, onClose }: ConsultProps) {
     }, []);
 
     const toggleListening = () => {
-        if (!recognitionRef.current) return;
+        if (!recognitionRef.current) {
+            alert("Speech recognition is not supported in this browser.");
+            return;
+        }
 
         if (!listening) {
-            recognitionRef.current.start();
-            setListening(true);
+            try {
+                recognitionRef.current.start();
+                setListening(true);
+            } catch (err) {
+                console.error("Start error:", err);
+            }
         } else {
             recognitionRef.current.stop();
             setListening(false);
@@ -60,25 +70,16 @@ export default function Consult({ isOpen, onClose }: ConsultProps) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            {/* Overlay */}
-            <div
-                className="absolute inset-0 bg-slate-900/60 backdrop-blur-md cursor-default"
-                onClick={onClose}
-            />
-
-            {/* Modal Content */}
-            <div className="relative z-50 w-full max-w-lg bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl border overflow-hidden">
-                <div className="flex items-center justify-between p-6 border-b bg-white/50">
+            <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onClick={onClose} />
+            <div className="relative z-50 w-full max-w-lg bg-white rounded-3xl shadow-xl border overflow-hidden">
+                <div className="flex items-center justify-between p-6 border-b">
                     <div className="flex items-center gap-2">
                         <div className="bg-blue-600 p-1.5 rounded-lg">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <h2 className="text-xl font-semibold text-slate-800">Find Your Consult With AI</h2>
+                        <h2 className="text-xl font-semibold">AI Consult</h2>
                     </div>
-                    <button
-                        onClick={onClose}
-                        className="p-2 hover:bg-slate-100 rounded-full cursor-pointer transition-colors"
-                    >
+                    <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full">
                         <X className="w-5 h-5 text-slate-500" />
                     </button>
                 </div>
@@ -88,15 +89,14 @@ export default function Consult({ isOpen, onClose }: ConsultProps) {
                         <textarea
                             value={symptoms}
                             onChange={(e) => setSymptoms(e.target.value)}
-                            placeholder="Type or speak your symptoms..."
+                            placeholder="Type or speak symptoms..."
                             rows={4}
-                            className="w-full rounded-2xl p-5 pr-14 bg-slate-50 focus:bg-white border-2 border-blue-400 outline-none resize-none transition-all duration-300 text-slate-700 shadow-inner"
+                            className="w-full rounded-2xl p-5 pr-14 bg-slate-50 border-2 border-blue-400 outline-none"
                         />
                         <button
                             onClick={toggleListening}
-                            className={`absolute bottom-3 right-3 p-2 rounded-full transition cursor-pointer ${listening
-                                    ? "bg-red-500 text-white animate-pulse"
-                                    : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+                            // FIXED: Added proper template literals for dynamic classes
+                            className={`absolute bottom-3 right-3 p-2 rounded-full transition ${listening ? "bg-red-500 text-white animate-pulse" : "bg-slate-200 text-slate-700"
                                 }`}
                         >
                             {listening ? <Square className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
@@ -104,18 +104,10 @@ export default function Consult({ isOpen, onClose }: ConsultProps) {
                     </div>
 
                     <div className="mt-5 flex justify-end">
-                        <button
-                            onClick={() => console.log("Analyzing:", symptoms)}
-                            className="flex items-center gap-2 bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition cursor-pointer active:scale-95 shadow-md"
-                        >
-                            Analyze <Sparkles className="w-4 h-4" />
+                        <button className="bg-blue-600 text-white px-6 py-2 rounded-full font-bold">
+                            Analyze
                         </button>
                     </div>
-
-                    <p className="mt-4 text-center text-xs text-slate-500 leading-relaxed">
-                        Our AI provides insights based on your input. <br />
-                        <span className="font-semibold text-slate-600 underline cursor-help">Always consult a professional doctor.</span>
-                    </p>
                 </div>
             </div>
         </div>
