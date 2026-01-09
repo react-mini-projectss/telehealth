@@ -80,7 +80,7 @@ export default function Consult({ isOpen, onClose }: ConsultProps) {
                         <div className="bg-blue-600 p-1.5 rounded-lg">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <h2 className="text-xl font-semibold text-slate-800">AI Consult</h2>
+                        <h2 className="text-xl font-semibold text-slate-800">Find Consult</h2>
                     </div>
                     <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full cursor-pointer">
                         <X className="w-5 h-5 text-slate-500" />
