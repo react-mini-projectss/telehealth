@@ -41,7 +41,7 @@ export default function Consult({ isOpen, onClose }: ConsultProps) {
             setListening(false);
         };
 
-        recognition.current = recognition;
+        recognitionRef.current = recognition;
     }, []);
 
     const toggleListening = () => {
@@ -60,22 +60,25 @@ export default function Consult({ isOpen, onClose }: ConsultProps) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            {/* Smooth backdrop fade */}
+            {/* Overlay */}
             <div
-                className="absolute inset-0 bg-slate-900/60 backdrop-blur-md cursor-default animate-in fade-in duration-300"
+                className="absolute inset-0 bg-slate-900/60 backdrop-blur-md cursor-default"
                 onClick={onClose}
             />
 
-            {/* Smooth Modal Scale-in */}
-            <div className="relative z-50 w-full max-w-lg bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl border overflow-hidden animate-in zoom-in-95 duration-300 ease-out">
+            {/* Modal Content */}
+            <div className="relative z-50 w-full max-w-lg bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl border overflow-hidden">
                 <div className="flex items-center justify-between p-6 border-b bg-white/50">
                     <div className="flex items-center gap-2">
                         <div className="bg-blue-600 p-1.5 rounded-lg">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <h2 className="text-xl font-semibold">Find Your Consult With AI</h2>
+                        <h2 className="text-xl font-semibold text-slate-800">Find Your Consult With AI</h2>
                     </div>
-                    <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full cursor-pointer transition-colors">
+                    <button
+                        onClick={onClose}
+                        className="p-2 hover:bg-slate-100 rounded-full cursor-pointer transition-colors"
+                    >
                         <X className="w-5 h-5 text-slate-500" />
                     </button>
                 </div>
@@ -91,7 +94,9 @@ export default function Consult({ isOpen, onClose }: ConsultProps) {
                         />
                         <button
                             onClick={toggleListening}
-                            className={`absolute bottom-3 right-3 p-2 rounded-full transition cursor-pointer ${listening ? "bg-red-500 text-white animate-pulse" : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+                            className={`absolute bottom-3 right-3 p-2 rounded-full transition cursor-pointer ${listening
+                                    ? "bg-red-500 text-white animate-pulse"
+                                    : "bg-slate-200 text-slate-700 hover:bg-slate-300"
                                 }`}
                         >
                             {listening ? <Square className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
@@ -101,13 +106,15 @@ export default function Consult({ isOpen, onClose }: ConsultProps) {
                     <div className="mt-5 flex justify-end">
                         <button
                             onClick={() => console.log("Analyzing:", symptoms)}
-                            className="flex items-center gap-2 bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition cursor-pointer active:scale-95"
+                            className="flex items-center gap-2 bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition cursor-pointer active:scale-95 shadow-md"
                         >
                             Analyze <Sparkles className="w-4 h-4" />
                         </button>
                     </div>
-                    <p className="mt-4 text-center text-xs text-slate-500">
-                        Our AI provides insights based on your input. Always consult a professional doctor.
+
+                    <p className="mt-4 text-center text-xs text-slate-500 leading-relaxed">
+                        Our AI provides insights based on your input. <br />
+                        <span className="font-semibold text-slate-600 underline cursor-help">Always consult a professional doctor.</span>
                     </p>
                 </div>
             </div>
