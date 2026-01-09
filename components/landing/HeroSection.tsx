@@ -1,9 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { ChevronRight, Check } from "lucide-react";
+import Consult from "@/components/Consult";
 
 export default function HeroSection() {
+    const [openConsult, setOpenConsult] = useState(false);
+
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-6">
             {/* Animated background gradient */}
@@ -46,12 +50,16 @@ export default function HeroSection() {
                         </div>
 
                         <div className="flex flex-wrap gap-4 pt-2">
-                            <button className="group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:scale-105">
-                                Book Consultation
+                            {/* CONSULT NOW BUTTON */}
+                            <button
+                                onClick={() => setOpenConsult(true)}
+                                className="group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:scale-105 cursor-pointer"
+                            >
+                                CONSULT NOW
                                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </button>
 
-                            <button className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-xl font-semibold transition-all duration-300">
+                            <button className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-xl font-semibold transition-all duration-300 cursor-pointer">
                                 Free Sign Up
                             </button>
                         </div>
@@ -89,7 +97,6 @@ export default function HeroSection() {
                             </div>
                         </div>
 
-                        {/* FLOATING BADGES */}
                         <div
                             className="absolute -top-4 -right-4 bg-gradient-to-br from-green-500 to-emerald-500 p-3.5 rounded-2xl shadow-xl text-white animate-bounce z-20"
                             style={{ animationDuration: "3s" }}
@@ -107,6 +114,12 @@ export default function HeroSection() {
 
                 </div>
             </div>
+
+            {/* CONSULT POPUP */}
+            <Consult
+                isOpen={openConsult}
+                onClose={() => setOpenConsult(false)}
+            />
         </section>
     );
 }

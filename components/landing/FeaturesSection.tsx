@@ -70,7 +70,7 @@ export default function FeaturesSection() {
     const ActiveIcon = features[activeFeature].icon;
 
     return (
-        <section className="relative py-12 md:py-20 px-6 bg-white">
+        <section className="relative py-32 px-6 bg-linear-to-b from-blue-50 to-white">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-6">
@@ -94,8 +94,8 @@ export default function FeaturesSection() {
                                 key={f.title}
                                 onClick={() => setActiveFeature(i)}
                                 className={`group px-3 py-2 rounded-full transition-all duration-300 flex items-center justify-center gap-2 text-xs md:text-sm ${activeFeature === i
-                                        ? `bg-gradient-to-r ${f.gradient} text-white shadow-md scale-105`
-                                        : "bg-blue-50 text-blue-900 hover:bg-blue-100 border border-blue-200"
+                                    ? `bg-linear-to-r ${f.gradient} text-white shadow-md scale-105`
+                                    : "bg-blue-50 text-blue-900 hover:bg-blue-100 border border-blue-200"
                                     }`}
                             >
                                 <Icon className="w-3.5 h-3.5" />
@@ -110,7 +110,7 @@ export default function FeaturesSection() {
                     {/* Left */}
                     <div className="space-y-4">
                         <div
-                            className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${features[activeFeature].gradient} shadow-lg text-white`}
+                            className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-linear-to-br ${features[activeFeature].gradient} shadow-lg text-white`}
                         >
                             <ActiveIcon className="w-7 h-7" />
                         </div>
@@ -132,7 +132,7 @@ export default function FeaturesSection() {
                                         className="flex items-center gap-3 text-gray-700"
                                     >
                                         <div
-                                            className={`w-5 h-5 rounded-full bg-gradient-to-br ${features[activeFeature].gradient} flex items-center justify-center`}
+                                            className={`w-5 h-5 rounded-full bg-linear-to-br ${features[activeFeature].gradient} flex items-center justify-center`}
                                         >
                                             <Check className="w-3 h-3 text-white" />
                                         </div>
@@ -143,7 +143,7 @@ export default function FeaturesSection() {
                         </ul>
 
                         <button
-                            className={`group bg-gradient-to-r ${features[activeFeature].gradient} px-6 py-2.5 rounded-xl font-semibold text-white transition-all duration-300 flex items-center gap-2`}
+                            className={`group bg-linear-to-r ${features[activeFeature].gradient} px-6 py-2.5 rounded-xl font-semibold text-white transition-all duration-300 flex items-center gap-2`}
                         >
                             Get Started
                             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -153,10 +153,10 @@ export default function FeaturesSection() {
                     {/* Right Image */}
                     <div className="flex justify-center lg:justify-end">
                         <div
-                            className={`relative bg-gradient-to-br ${features[activeFeature].gradient} p-0.5 rounded-[2rem] shadow-xl max-w-[320px] md:max-w-md w-full`}
+                            className={`relative bg-linear-to-br ${features[activeFeature].gradient} p-0.5 rounded-4xl shadow-xl max-w-[320px] md:max-w-md w-full`}
                         >
                             <div className="bg-white rounded-[1.85rem] p-4 md:p-6">
-                                <div className="aspect-square bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl overflow-hidden">
+                                <div className="aspect-square bg-linear-to-br from-blue-50 to-cyan-50 rounded-2xl overflow-hidden">
                                     <Image
                                         src={features[activeFeature].image}
                                         alt={features[activeFeature].title}

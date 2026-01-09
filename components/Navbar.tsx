@@ -18,7 +18,7 @@ export default function Navbar() {
 
         {/* Primary CTA Button */}
         <button className="bg-purple-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-purple-700 shadow-md active:scale-95 transition-all">
-          Book Consultation
+          Sign Up
         </button>
       </div>
     </nav>
